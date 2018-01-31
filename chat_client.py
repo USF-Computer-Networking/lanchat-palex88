@@ -13,23 +13,32 @@ MESSAGE = "Hello, Server"
 def run():
 
     parser = argparse.ArgumentParser()
-    parser.parse_args()
+    parser.add_argument("-p", "--port", help="the port you want to use", type=int)
+    parser.add_argument("-i", "--ip", help="the ip address you want to use", type=str)
+    args = parser.parse_args()
 
     ip_dict = scan.make_arp_dict()
     for k, v in ip_dict.iteritems():
         print "Hostname: " + v + " IP Address: " + k
     print "\n"
 
-    addr = BROADCAST_IP
-    port = DEFAULT_PORT
+    if args.ip:
+        addr = args.ip
+    else:
+        addr = BROADCAST_IP
 
-    input = raw_input("Enter IP address to broadcast to. If none, message will be broadcast.")
+    if args.port:
+        port = args.port
+    else:
+        port = DEFAULT_PORT
+
+    input = raw_input("Enter IP address to message. If none, message will be broadcast or sent to command line arg.")
     if ip_dict.has_key(input):
         addr = input
     else:
         print "IP not in local network, set to broadcast.\n"
 
-    port_alt = raw_input("Default port set to 9999. Enter a new port or hit enter to leave default.")
+    port_alt = raw_input("Default port set to 9999 or command line arg. Enter a new port or hit enter to leave default.")
     if port_alt.isdigit() & len(port_alt) == 4:
         port = port_alt
     else:

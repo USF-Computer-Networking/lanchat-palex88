@@ -17,6 +17,17 @@ def get_host_name():
 def arp_network():
     return check_output(["arp", "-a"])
 
+def make_arp_dict():
+    all_hosts = (arp_network())
+
+    ip_objects = {}
+    for arp_addr in all_hosts.splitlines():
+        ip_address = arp_addr.split(" ")[0]
+        host_name = arp_addr.split(" ")[1]
+        ip_objects[ip_address] = host_name
+
+    return ip_objects
+
 
 if __name__ == '__main__':
 

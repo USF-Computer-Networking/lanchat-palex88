@@ -5,8 +5,8 @@ def run_server(UDP_IP_ADDRESS, UDP_PORT_NO):
     serverSock.bind((UDP_IP_ADDRESS, UDP_PORT_NO))
 
     while True:
-        data, addr = serverSock.recvfrom(6789)
+        data, addr = serverSock.recvfrom(9999)
         print "Message: ", data
 
 if __name__ == '__main__':
-    run_server("192.168.42.86", 6789)
+    run_server("192.168.42.86", 9999)

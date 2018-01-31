@@ -1,7 +1,5 @@
-import sys
-import argparse
+import  argparse
 from socket import *
-from select import select
 
 import scan
 
@@ -12,8 +10,8 @@ MESSAGE = "Hello, Server"
 
 def run():
 
-    # parser = argparse.ArgumentParser
-    # parser.add_argument("-h", "--help", help="Get more info", required=False, default="")
+    parser = argparse.ArgumentParser()
+    parser.parse_args()
 
     ip_dict = scan.make_arp_dict()
     for k, v in ip_dict.iteritems():
@@ -49,20 +47,6 @@ def run():
         else:
             client_sock.sendto(mess, (addr, port))
 
-        # sender = socket(AF_INET, SOCK_DGRAM)
-        # receiver = socket(AF_INET, SOCK_DGRAM)
-        # receiver.bind((addr, port))
-        # sender.sendto(mess, (addr, port))
-        #
-        # while True:
-        #     inputready, outputready, exceptready = select(input, [], [])
-        #
-        #     for s in inputready:
-        #         if s in inputready:
-        #             data, addr = receiver.recvfrom(port)
-        #             print data
-        #         elif s == sys.stdin:
-        #             sender.sendto(sys.stdin.readline(), (addr, port))
 
 if __name__ == '__main__':
     run()

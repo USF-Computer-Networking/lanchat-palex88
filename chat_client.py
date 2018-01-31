@@ -1,4 +1,6 @@
-import  argparse
+import sys
+import os
+import argparse
 from socket import *
 
 import scan
@@ -18,7 +20,7 @@ def run():
         print "Hostname: " + v + " IP Address: " + k
     print "\n"
 
-    addr = MY_IP
+    addr = BROADCAST_IP
     port = DEFAULT_PORT
 
     input = raw_input("Enter IP address to broadcast to. If none, message will be broadcast.")
@@ -49,4 +51,11 @@ def run():
 
 
 if __name__ == '__main__':
-    run()
+    try:
+        run()
+    except KeyboardInterrupt:
+        print '\nExiting'
+        try:
+            sys.exit(0)
+        except SystemExit:
+            os._exit(0)

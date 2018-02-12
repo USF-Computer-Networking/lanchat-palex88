@@ -1,5 +1,12 @@
-import sys
-import os
+#!/usr/bin/env python
+
+# File:           main.py
+# Author:         Alex Thompson
+# Github:         palex88
+# Date Created:   2018-01-31
+# Date Modified:  2018-02-12
+# Python Version: 2.7
+
 import argparse
 from socket import *
 
@@ -9,6 +16,7 @@ MY_IP = "192.168.42.86"
 BROADCAST_IP = "255.255.255.255"
 DEFAULT_PORT = 9999
 MESSAGE = "Hello, Server"
+
 
 def run():
 
@@ -32,20 +40,20 @@ def run():
     else:
         port = DEFAULT_PORT
 
-    input = raw_input("Enter IP address to message. If none, message will be broadcast or sent to command line arg.")
-    if ip_dict.has_key(input):
-        addr = input
+    ip_input = raw_input("Enter IP address to message. If none, message will be broadcast or sent to command line arg.")
+    if ip_dict.has_key(ip_input):
+        addr = ip_input
     else:
         print "IP not in local network, set to broadcast.\n"
 
-    port_alt = raw_input("Default port set to 9999 or command line arg. Enter a new port or hit enter to leave default.")
+    port_alt = raw_input("Default port set to 9999 or command line arg. "
+                         "Enter a new port or hit enter to leave default.")
     if port_alt.isdigit() & len(port_alt) == 4:
         port = port_alt
     else:
         print "Not a valid port. Port is set to 9999.\n"
 
     print 'Type "quit" to exit chat.'
-
 
     while True:
 

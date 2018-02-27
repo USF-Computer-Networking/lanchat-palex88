@@ -4,7 +4,7 @@
 # Author:         Alex Thompson
 # Github:         palex88
 # Date Created:   2018-01-31
-# Date Modified:  2018-02-12
+# Date Modified:  2018-02-26
 # Python Version: 2.7
 
 import argparse
@@ -55,16 +55,21 @@ def run():
 
     print 'Type "quit" to exit chat.'
 
+    client_sock = socket(AF_INET, SOCK_DGRAM)
+    client_sock.setsockopt(SOL_SOCKET, SO_BROADCAST, 1)
+    # client_sock.bind((addr, port))
+
     while True:
 
-        client_sock = socket(AF_INET, SOCK_DGRAM)
-        client_sock.setsockopt(SOL_SOCKET, SO_BROADCAST, 1)
-
-        mess = raw_input()
-        if mess.lower() == "quit":
-            return False
+        if client_sock.recvfrom(port) != None:
+            data, addr = client_sock.recvfrom(port)
+            print "Message: ", data
         else:
-            client_sock.sendto(mess, (addr, port))
+            mess = raw_input()
+            if mess.lower() == "quit":
+                return False
+            else:
+                client_sock.sendto(mess, (addr, port))
 
 
 if __name__ == '__main__':

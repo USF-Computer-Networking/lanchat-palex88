@@ -8,6 +8,8 @@
 # Python Version: 2.7
 
 import argparse
+import sys
+import os
 from socket import *
 
 import scan
@@ -57,7 +59,6 @@ def run():
 
     client_sock = socket(AF_INET, SOCK_DGRAM)
     client_sock.setsockopt(SOL_SOCKET, SO_BROADCAST, 1)
-    # client_sock.bind((addr, port))
 
     while True:
 

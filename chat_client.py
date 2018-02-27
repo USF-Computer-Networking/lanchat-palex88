@@ -57,20 +57,16 @@ def run():
 
     print 'Type "quit" to exit chat.'
 
-    client_sock = socket(AF_INET, SOCK_DGRAM)
-    client_sock.setsockopt(SOL_SOCKET, SO_BROADCAST, 1)
-
     while True:
 
-        if client_sock.recvfrom(port) != None:
-            data, addr = client_sock.recvfrom(port)
-            print "Message: ", data
+        client_sock = socket(AF_INET, SOCK_DGRAM)
+        client_sock.setsockopt(SOL_SOCKET, SO_BROADCAST, 1)
+
+        mess = raw_input()
+        if mess.lower() == "quit":
+            return False
         else:
-            mess = raw_input()
-            if mess.lower() == "quit":
-                return False
-            else:
-                client_sock.sendto(mess, (addr, port))
+            client_sock.sendto(mess, (addr, port))
 
 
 if __name__ == '__main__':
